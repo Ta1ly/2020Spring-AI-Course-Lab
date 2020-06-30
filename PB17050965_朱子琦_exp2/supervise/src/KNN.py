@@ -1,7 +1,5 @@
 # KNN.py
 
-
-
 def get_distance(data1, data2, n):
     # Euclidean distance
     res = 0
@@ -12,6 +10,7 @@ def get_distance(data1, data2, n):
 
 
 def knn(trainset, trainlabel, testset, k_list):
+    print("======running knn algorithm=======")
     n = testset.iloc[0].size
     k_res = {}
     for k in k_list:
@@ -29,10 +28,15 @@ def knn(trainset, trainlabel, testset, k_list):
             for i in range(k):
                 row = d_list[i][1]
                 label = trainlabel.loc[row]
-                label_select[label] += 1
+                if label == 1:
+                    label_select[1] += 1
+                else:
+                    label_select[0] += 1 
             if label_select[0] > label_select[1]:
-                k_res[k][testrow] = 0
+                k_res[k][testrow] = -1
             else:
                 k_res[k][testrow] = 1
+    print("======knn finish=======")
+    print()
     return k_res
 
